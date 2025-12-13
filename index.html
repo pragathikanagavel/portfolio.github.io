@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-   (function(){
-      emailjs.init("qQteSh-9IAVOxPtRW"); 
-   })();
-</script>
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init({
+        publicKey: "qQteSh-9IAVOxPtRW",
+      });
+    })();
+  </script>
 
   <title>Pragathi Kanagavel </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -339,6 +340,7 @@ document.getElementById('contact-form').addEventListener('submit', function(even
     
     // Prepare template parameters (matching your template variables)
     const templateParams = {
+        name: formData.get('user_name'),
         user_name: formData.get('user_name'),
         user_email: formData.get('user_email'),
         user_message: formData.get('user_message'),
@@ -353,8 +355,8 @@ document.getElementById('contact-form').addEventListener('submit', function(even
         reply_to: formData.get('user_email')
     };
     
-    // Send email using EmailJS with sendForm method (more compatible)
-    emailjs.sendForm('service_32f0q49', '__ejs-test-mail-service__', '#contact-form')
+    // Send email using EmailJS
+    emailjs.send('service_32f0q49', 'template_ifs1pfu', templateParams)
         .then(function(response) {
             console.log('SUCCESS!', response.status, response.text);
             statusElement.innerHTML = '<span style="color: #4CAF50;">✅ Message sent successfully! I\'ll get back to you soon.</span>';
